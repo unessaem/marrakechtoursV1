@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prestige Tours Marrakech — Excursions privées & transferts aéroport</title>
+    <meta
+      name="description"
+      content="Excursions privées d'une journée au départ de Marrakech : Atlas, désert d'Agafay, Ouzoud, Essaouira, Aït Ben Haddou. Chauffeur-guide francophone et anglophone, transferts aéroport dans tout le Maroc. Réservation sur WhatsApp."
+    />
+    <link rel="canonical" href="https://prestigetoursmarrakech.com/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Prestige Tours Marrakech" />
+    <meta property="og:url" content="https://prestigetoursmarrakech.com/" />
+    <meta property="og:title" content="Prestige Tours Marrakech — Excursions privées depuis Marrakech" />
+    <meta
+      property="og:description"
+      content="Excursions privées d'une journée depuis Marrakech et transferts aéroport. Un seul groupe, votre programme, votre rythme."
+    />
+    <meta property="og:image" content="https://prestigetoursmarrakech.com/logo-full.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#b84a2c" />
+
+    <script>
+      // Applique le thème avant le premier rendu pour éviter le flash blanc.
+      try {
+        var saved = localStorage.getItem("ptm-theme");
+        var dark = saved === "dark" || (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        if (dark) {
+          document.documentElement.classList.add("dark");
+          document.documentElement.style.colorScheme = "dark";
+        }
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
