@@ -1,46 +1,57 @@
 import { createContext, useCallback, useEffect, useMemo, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import translations from "../i18n/translations";
+import { otherLangPath, parsePath } from "../lib/routes";
 
 export const AppContext = createContext(null);
 
-const getInitialLang = () => {
-  if (typeof window === "undefined") return "fr";
-  const saved = window.localStorage.getItem("ptm-lang");
-  if (saved === "fr" || saved === "en") return saved;
-  return (navigator.language || "fr").toLowerCase().startsWith("en") ? "en" : "fr";
-};
-
 const getInitialTheme = () => {
   if (typeof window === "undefined") return "light";
-  const saved = window.localStorage.getItem("ptm-theme");
-  if (saved === "light" || saved === "dark") return saved;
-  const host = document.documentElement.getAttribute("data-theme");
-  if (host === "light" || host === "dark") return host;
+  try {
+    const saved = window.localStorage.getItem("ptm-theme");
+    if (saved === "light" || saved === "dark") return saved;
+  } catch {
+    /* stockage indisponible */
+  }
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 };
 
 export function AppProvider({ children }) {
-  const [lang, setLang] = useState(getInitialLang);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  // La langue vient de l'URL (/fr/... ou /en/...), pas du navigateur :
+  // chaque langue a ses propres pages indexables.
+  const lang = parsePath(pathname).lang;
+
   const [theme, setTheme] = useState(getInitialTheme);
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [quoteTour, setQuoteTour] = useState(null);
 
   useEffect(() => {
-    document.documentElement.lang = lang;
-    try { window.localStorage.setItem("ptm-lang", lang); } catch (e) { /* ignore */ }
-  }, [lang]);
-
-  useEffect(() => {
     const root = document.documentElement;
     root.classList.toggle("dark", theme === "dark");
     root.style.colorScheme = theme;
-    try { window.localStorage.setItem("ptm-theme", theme); } catch (e) { /* ignore */ }
+    try {
+      window.localStorage.setItem("ptm-theme", theme);
+    } catch {
+      /* stockage indisponible */
+    }
   }, [theme]);
 
   const t = useMemo(() => translations[lang], [lang]);
 
   const toggleTheme = useCallback(() => setTheme((v) => (v === "dark" ? "light" : "dark")), []);
-  const toggleLang = useCallback(() => setLang((v) => (v === "fr" ? "en" : "fr")), []);
+
+  const toggleLang = useCallback(() => {
+    const target = lang === "fr" ? "en" : "fr";
+    try {
+      window.localStorage.setItem("ptm-lang", target);
+    } catch {
+      /* stockage indisponible */
+    }
+    navigate(otherLangPath(pathname, target));
+  }, [lang, pathname, navigate]);
 
   const openQuote = useCallback((tour = null, people = null, date = null) => {
     setQuoteTour(tour ? { ...tour, people, date } : null);
@@ -49,7 +60,7 @@ export function AppProvider({ children }) {
   const closeQuote = useCallback(() => setQuoteOpen(false), []);
 
   const value = useMemo(
-    () => ({ lang, setLang, toggleLang, theme, toggleTheme, t, quoteOpen, quoteTour, openQuote, closeQuote }),
+    () => ({ lang, toggleLang, theme, toggleTheme, t, quoteOpen, quoteTour, openQuote, closeQuote }),
     [lang, toggleLang, theme, toggleTheme, t, quoteOpen, quoteTour, openQuote, closeQuote]
   );
 

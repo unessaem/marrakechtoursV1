@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import useApp from "../context/useApp";
 import site from "../config/site";
 import tours from "../data/tours";
+import { path } from "../lib/routes";
 import Logo from "./Logo";
 import SocialLinks from "./SocialLinks";
 import { Mail, Phone, Pin, WhatsApp } from "./Icons";
@@ -29,10 +30,10 @@ export default function Footer() {
           </h3>
           <ul className="mt-4 space-y-2 text-sm">
             {[
-              { to: "/", label: t.nav.home },
-              { to: "/excursions", label: t.nav.tours },
-              { to: "/a-propos", label: t.nav.about },
-              { to: "/contact", label: t.nav.contact },
+              { to: path(lang, "home"), label: t.nav.home },
+              { to: path(lang, "tours"), label: t.nav.tours },
+              { to: path(lang, "about"), label: t.nav.about },
+              { to: path(lang, "contact"), label: t.nav.contact },
             ].map((l) => (
               <li key={l.to}>
                 <Link className="text-sand-700 transition hover:text-clay-600 dark:text-sand-300 dark:hover:text-white" to={l.to}>
@@ -52,7 +53,7 @@ export default function Footer() {
               <li key={x.slug}>
                 <Link
                   className="text-sand-700 transition hover:text-clay-600 dark:text-sand-300 dark:hover:text-white"
-                  to={`/excursions/${x.slug}`}
+                  to={path(lang, "tour", x.slug)}
                 >
                   {x.title[lang]}
                 </Link>
@@ -96,7 +97,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-sand-200 py-6 dark:border-white/10">
-        <div className="container-x flex flex-col items-center justify-between gap-2 text-xs text-sand-600 sm:flex-row dark:text-sand-400">
+        <div className="container-x flex flex-col items-center justify-between gap-2 text-xs text-sand-700 sm:flex-row dark:text-sand-400">
           <p>
             © {new Date().getFullYear()} {site.brand}. {t.footer.rights}
           </p>

@@ -127,7 +127,7 @@ export default function QuoteModal() {
             <WhatsApp className="h-5 w-5" />
             {t.quote.send}
           </a>
-          <p className="mt-3 text-center text-xs text-sand-600 dark:text-sand-400">{t.quote.note}</p>
+          <p className="mt-3 text-center text-xs text-sand-700 dark:text-sand-400">{t.quote.note}</p>
         </div>
       </div>
     </div>

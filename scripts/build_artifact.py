@@ -19,8 +19,9 @@ original = open(MAIN, encoding="utf-8").read()
 try:
     patched = original.replace("BrowserRouter", "HashRouter")
     open(MAIN, "w", encoding="utf-8").write(patched)
-    subprocess.run(["npm", "run", "build"], cwd=ROOT, check=True,
-                   stdout=subprocess.DEVNULL)
+    env = {**os.environ, "ARTIFACT": "1"}
+    subprocess.run(["npm", "run", "build:client"], cwd=ROOT, check=True,
+                   stdout=subprocess.DEVNULL, env=env)
 finally:
     open(MAIN, "w", encoding="utf-8").write(original)
 

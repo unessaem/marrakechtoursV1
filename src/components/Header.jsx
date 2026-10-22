@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import useApp from "../context/useApp";
+import { path } from "../lib/routes";
 import site from "../config/site";
 import Logo from "./Logo";
 import SocialLinks from "./SocialLinks";
@@ -21,11 +22,12 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const home = path(lang, "home");
   const links = [
-    { to: "/", label: t.nav.home },
-    { to: "/excursions", label: t.nav.tours },
-    { to: "/a-propos", label: t.nav.about },
-    { to: "/contact", label: t.nav.contact },
+    { to: home, label: t.nav.home },
+    { to: path(lang, "tours"), label: t.nav.tours },
+    { to: path(lang, "about"), label: t.nav.about },
+    { to: path(lang, "contact"), label: t.nav.contact },
   ];
 
   const linkClass = ({ isActive }) =>
@@ -44,7 +46,7 @@ export default function Header() {
       }`}
     >
       <div className="container-x flex h-16 items-center justify-between gap-3 sm:h-20">
-        <Link to="/" className="flex min-w-0 flex-1 items-center gap-2.5 lg:flex-none lg:shrink-0">
+        <Link to={home} className="flex min-w-0 flex-1 items-center gap-2.5 lg:flex-none lg:shrink-0">
           <Logo size={44} className="shadow-soft" />
           <span className="min-w-0 leading-tight">
             <span className="block truncate font-display text-[15px] font-bold sm:text-base lg:whitespace-nowrap">
@@ -58,7 +60,7 @@ export default function Header() {
 
         <nav className="hidden shrink-0 items-center gap-1 lg:flex">
           {links.map((l) => (
-            <NavLink key={l.to} to={l.to} className={linkClass} end={l.to === "/"}>
+            <NavLink key={l.to} to={l.to} className={linkClass} end={l.to === home}>
               <span className="whitespace-nowrap">{l.label}</span>
             </NavLink>
           ))}
@@ -70,11 +72,11 @@ export default function Header() {
           <button
             onClick={toggleLang}
             className="inline-flex h-9 items-center gap-1 rounded-full border border-sand-300 bg-white/70 px-3 text-xs font-bold uppercase tracking-wide text-sand-800 transition hover:bg-white dark:border-white/15 dark:bg-white/5 dark:text-sand-200 dark:hover:bg-white/10"
-            aria-label={t.common.language}
+            title={lang === "fr" ? "Switch to English" : "Passer en français"}
           >
             {lang === "fr" ? "FR" : "EN"}
             <span className="text-sand-400">|</span>
-            <span className="font-medium text-sand-500 dark:text-sand-400">{lang === "fr" ? "EN" : "FR"}</span>
+            <span className="font-medium text-sand-700 dark:text-sand-400">{lang === "fr" ? "EN" : "FR"}</span>
           </button>
 
           <button
@@ -108,7 +110,7 @@ export default function Header() {
               <NavLink
                 key={l.to}
                 to={l.to}
-                end={l.to === "/"}
+                end={l.to === home}
                 className={({ isActive }) =>
                   `rounded-xl px-3 py-3 text-sm font-medium ${
                     isActive

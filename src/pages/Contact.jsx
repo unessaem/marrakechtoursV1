@@ -41,7 +41,7 @@ export default function Contact() {
                       <Icon className="h-5 w-5" />
                     </span>
                     <div className="min-w-0">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-sand-600 dark:text-sand-400">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-sand-700 dark:text-sand-400">
                         {title}
                       </p>
                       <p className="mt-0.5 break-words text-sm font-semibold leading-snug">{value}</p>

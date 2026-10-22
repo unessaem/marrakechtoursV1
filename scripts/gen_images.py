@@ -135,12 +135,9 @@ def wall(y, color, holes="#00000022"):
 
 
 def grain():
-    return (
-        '<filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.85" '
-        'numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/>'
-        "</filter>"
-        f'<rect width="{W}" height="{H}" filter="url(#grain)" opacity="0.05"/>'
-    )
+    # Volontairement vide : un filtre feTurbulence sur 13 images plein écran
+    # coûte très cher à dessiner sur mobile, pour un grain à peine visible.
+    return ""
 
 
 def svg(defs, body):

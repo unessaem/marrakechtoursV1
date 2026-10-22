@@ -42,11 +42,23 @@ export default function About() {
             <div className="grid gap-4 sm:grid-cols-2">
               <SmartImage
                 name="about-1"
-                alt=""
+                alt={
+                  lang === "fr"
+                    ? "Col de montagne du Haut Atlas sur la route d'une excursion depuis Marrakech"
+                    : "High Atlas mountain pass on a day trip from Marrakech"
+                }
                 className="h-64 w-full rounded-3xl object-cover sm:col-span-2 sm:h-72"
               />
-              <SmartImage name="about-2" alt="" className="h-44 w-full rounded-3xl object-cover sm:h-52" />
-              <SmartImage name="about-3" alt="" className="h-44 w-full rounded-3xl object-cover sm:h-52" />
+              <SmartImage
+                name="about-2"
+                alt={lang === "fr" ? "Thé à la menthe servi lors d'une pause en excursion" : "Mint tea served during a stop on tour"}
+                className="h-44 w-full rounded-3xl object-cover sm:h-52"
+              />
+              <SmartImage
+                name="about-3"
+                alt={lang === "fr" ? "Étal de fruits au bord de la route près de Marrakech" : "Roadside fruit stall near Marrakech"}
+                className="h-44 w-full rounded-3xl object-cover sm:h-52"
+              />
 
               <dl className="grid grid-cols-3 gap-4 rounded-3xl border border-sand-200 bg-white p-5 text-center sm:col-span-2 dark:border-white/10 dark:bg-night-900">
                 {[
@@ -56,7 +68,7 @@ export default function About() {
                 ].map(([n, labelText]) => (
                   <div key={labelText}>
                     <dt className="font-display text-2xl font-bold text-clay-700 dark:text-clay-200">{n}</dt>
-                    <dd className="mt-1 text-[11px] leading-snug text-sand-600 dark:text-sand-400">{labelText}</dd>
+                    <dd className="mt-1 text-[11px] leading-snug text-sand-700 dark:text-sand-400">{labelText}</dd>
                   </div>
                 ))}
               </dl>

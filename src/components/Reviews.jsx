@@ -26,7 +26,7 @@ export default function Reviews() {
                 </span>
                 <span>
                   <span className="block font-semibold">{r.name}</span>
-                  <span className="block text-xs text-sand-600 dark:text-sand-400">
+                  <span className="block text-xs text-sand-700 dark:text-sand-400">
                     {r.country} · {r.tour}
                   </span>
                 </span>

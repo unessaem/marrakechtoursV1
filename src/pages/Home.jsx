@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import useApp from "../context/useApp";
 import site from "../config/site";
 import tours from "../data/tours";
+import { path } from "../lib/routes";
 import TourCard from "../components/TourCard";
 import SectionHeading from "../components/SectionHeading";
 import SmartImage from "../components/SmartImage";
@@ -19,7 +20,16 @@ export default function Home() {
     <>
       {/* HERO */}
       <section className="relative overflow-hidden">
-        <SmartImage name="hero" alt="" loading="eager" className="absolute inset-0 h-full w-full object-cover" />
+        <SmartImage
+          name="hero"
+          priority
+          alt={
+            lang === "fr"
+              ? "Route de montagne dans le Haut Atlas au lever du soleil, au départ de Marrakech"
+              : "Mountain road in the High Atlas at sunrise, on a day trip from Marrakech"
+          }
+          className="absolute inset-0 h-full w-full object-cover"
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-night-950/55 via-night-950/35 to-night-950/80" />
         <div className="absolute inset-0 bg-gradient-to-r from-night-950/70 via-night-950/25 to-transparent" />
         <div className="container-x relative flex min-h-[80vh] flex-col justify-center py-24 text-white">
@@ -37,7 +47,7 @@ export default function Home() {
                 {t.hero.ctaPrimary}
               </button>
               <Link
-                to="/excursions"
+                to={path(lang, "tours")}
                 className="btn border border-white/30 bg-white/10 text-white backdrop-blur transition hover:bg-white/20"
               >
                 {t.hero.ctaSecondary} <Arrow className="h-4 w-4" />
@@ -67,7 +77,7 @@ export default function Home() {
           <ol className="mt-12 grid gap-8 sm:grid-cols-3">
             {t.how.steps.map((s, i) => (
               <li key={s.title} className="relative">
-                <span className="font-display text-4xl font-bold text-clay-600/25 dark:text-clay-300/25">
+                <span className="font-display text-4xl font-bold text-clay-800/70 dark:text-clay-300/60">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <h3 className="mt-2 font-display text-lg font-bold">{s.title}</h3>
@@ -94,7 +104,7 @@ export default function Home() {
             ))}
           </div>
           <div className="mt-10 text-center">
-            <Link to="/excursions" className="btn-primary">
+            <Link to={path(lang, "tours")} className="btn-primary">
               {t.tours.viewAll} <Arrow className="h-4 w-4" />
             </Link>
           </div>
@@ -129,7 +139,11 @@ export default function Home() {
       <section className="pb-20">
         <div className="container-x">
           <div className="relative overflow-hidden rounded-3xl px-6 py-16 text-center text-white sm:px-12">
-            <SmartImage name="desert-agafay" alt="" className="absolute inset-0 h-full w-full object-cover" />
+            <SmartImage
+              name="desert-agafay"
+              alt={lang === "fr" ? "Désert d'Agafay au coucher du soleil" : "The Agafay desert at sunset"}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
             <div className="absolute inset-0 bg-night-950/70" />
             <div className="relative mx-auto max-w-xl">
               <h2 className="font-display text-3xl font-bold sm:text-4xl">

@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import useApp from "../context/useApp";
 import site from "../config/site";
 import tours, { getTour, included, notIncluded } from "../data/tours";
+import { path } from "../lib/routes";
 import SmartImage from "../components/SmartImage";
 import TourCard from "../components/TourCard";
 import { ArrowLeft, Check, Clock, Minus, Pin, Users, WhatsApp } from "../components/Icons";
@@ -19,7 +20,7 @@ export default function TourDetail() {
       <div className="section">
         <div className="container-x text-center">
           <h1 className="font-display text-3xl font-bold">{t.common.notFound}</h1>
-          <Link to="/excursions" className="btn-primary mt-8">
+          <Link to={path(lang, "tours")} className="btn-primary mt-8">
             {t.detail.back}
           </Link>
         </div>
@@ -45,11 +46,16 @@ export default function TourDetail() {
     <>
       {/* HERO */}
       <section className="relative overflow-hidden">
-        <SmartImage name={tour.slug} alt="" loading="eager" className="absolute inset-0 h-full w-full object-cover" />
+        <SmartImage
+          name={tour.slug}
+          priority
+          alt={`${tour.title[lang]} — ${site.brand}`}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-night-950/50 via-night-950/30 to-night-950/85" />
         <div className="container-x relative flex min-h-[52vh] flex-col justify-end py-16 text-white">
           <Link
-            to="/excursions"
+            to={path(lang, "tours")}
             className="inline-flex w-fit items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3.5 py-1.5 text-xs font-medium backdrop-blur transition hover:bg-white/20"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
@@ -75,7 +81,7 @@ export default function TourDetail() {
                   <Icon className="h-5 w-5" />
                 </span>
                 <div className="min-w-0">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-sand-600 dark:text-sand-400">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-sand-700 dark:text-sand-400">
                     {title}
                   </p>
                   <p className="mt-0.5 text-sm font-semibold leading-snug">{value}</p>
@@ -159,7 +165,7 @@ export default function TourDetail() {
                     {notInc[lang].map((x) => (
                       <li
                         key={x}
-                        className="flex items-start gap-2.5 text-sm leading-relaxed text-sand-600 dark:text-sand-400"
+                        className="flex items-start gap-2.5 text-sm leading-relaxed text-sand-700 dark:text-sand-400"
                       >
                         <Minus className="mt-0.5 h-4 w-4 shrink-0" />
                         <span>{x}</span>
@@ -218,10 +224,10 @@ export default function TourDetail() {
                   <WhatsApp className="h-5 w-5" />
                   {t.detail.bookNow}
                 </button>
-                <Link to="/contact" className="btn-ghost mt-2.5 w-full">
+                <Link to={path(lang, "contact")} className="btn-ghost mt-2.5 w-full">
                   {t.detail.askQuestion}
                 </Link>
-                <p className="mt-4 text-center text-xs leading-relaxed text-sand-600 dark:text-sand-400">
+                <p className="mt-4 text-center text-xs leading-relaxed text-sand-700 dark:text-sand-400">
                   {t.detail.noPayment}
                 </p>
               </div>
